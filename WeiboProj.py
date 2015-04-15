@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#coding=utf8
+#coding=utf-8
 
 '''Author: Tuo LI
 DATE: 04/july/2014'''
@@ -36,12 +36,11 @@ from getWeiboPage import *
 
 
 if __name__ == '__main__':
-    print "Start"
-    weiboLogin = WeiboLogin('lituobuaa@hotmail.com', 'L_t2011!')#邮箱（账号）、密码
+    print("Start")
+    weiboLogin = WeiboLogin('lituobuaa@hotmail.com', 'L_t2011!') # Email,Password
     if weiboLogin.Login() == True:
-        print "登陆成功！"
         WBmsg = getWeiboPage()
-        context = WBmsg.get_weibo(1005051868663380,1)
+        context1,context2,context3 = WBmsg.get_weibo(1005051868663380,1) #1868663380  http://www.weibo.com/p/1005051868663380/home
 
     
 

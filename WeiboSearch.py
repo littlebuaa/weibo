@@ -9,21 +9,20 @@ import json
 
 def sServerData(serverData):
     "Search the server time & nonce from server data"
-    
-    p = re.compile('\((.*)\)')
+    print("----------Search the server time & nonce-------------")
+    p = re.compile(b'\((.*)\)')
     jsonData = p.search(serverData).group(1)
-    data = json.loads(jsonData)
+    data = json.loads(jsonData.decode())
     serverTime = str(data['servertime'])
     nonce = data['nonce']
     pubkey = data['pubkey']#
     rsakv = data['rsakv']# 
-    print "Server time is:", serverTime
-    print "Nonce is:", nonce
+    print(("Server time is: %s" %serverTime))
+    print(("Nonce is: %s"%nonce))
     return serverTime, nonce, pubkey, rsakv
 
 
 def sRedirectData(text):
-    p = re.compile('location\.replace\([\'"](.*?)[\'"]\)')
+    p = re.compile(b'location\.replace\([\'"](.*?)[\'"]\)')
     loginUrl = p.search(text).group(1)
-    print 'loginUrl:',loginUrl
-    return loginUrl
+    return loginUrl.decode()
