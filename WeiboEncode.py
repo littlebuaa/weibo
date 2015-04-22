@@ -32,8 +32,8 @@ def PostEncode(userName, passWord, serverTime, nonce, pubkey, rsakv):
         'sr' :'1536*864',
         'encoding': 'UTF-8',
         'prelt': '827',
-        'rsakv': rsakv,     
-        'url': 'http://weibo.com/ajaxlogin.php?framelogin=1&callback=parent.sinaSSOController.feedBackUrlCallBack',
+        'rsakv': rsakv,
+        'url': 'http://www.weibo.com/ajaxlogin.php?framelogin=1&callback=parent.sinaSSOController.feedBackUrlCallBack',
         'returntype': 'META'
     }
     postData = urllib.parse.urlencode(postPara)#网络编码

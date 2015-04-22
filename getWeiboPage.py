@@ -67,14 +67,30 @@ class getWeiboPage:
         getWeiboPage.body['page'] = page
         getWeiboPage.body1['page'] = page
         url = self.get_url(uid)
-        x =self.get_firstpage(url)
-        y =self.get_secondpage(url)
-        z =self.get_thirdpage(url)
-        return (x,y,z)
+        total_page_html =self.get_totalpage(url)
+        return total_page_html
+    
     def get_totalpage(self,url):
-        x =self.get_firstpage(url)
-        y =self.get_secondpage(url)
-        z =self.get_thirdpage(url)
+        x = self.get_firstpage(url)
+        #########################
+        print(len(x))
+        self.writefile('1.html',x)
+        
+        x += self.get_secondpage(url)
+        #########################
+        print(len(x))
+        self.writefile('2.html',x)
+        
+        x += self.get_thirdpage(url)
+        #########################
+        print(len(x))
+        self.writefile('3.html',x)
+        
+        soup = parse_followings(x)
+        self.writefile('page.html',soup.prettify().encode('utf-8'))
+        text = soup.findAll('div', attrs={'class':'WB_text', 'node-type' : 'feed_list_content'})
+        print("weibo found, write the 1st part!")
+        return text
         
     def get_firstpage(self,url):
         getWeiboPage.body['pre_page'] = getWeiboPage.body['page']
@@ -82,14 +98,12 @@ class getWeiboPage:
         req = urllib.request.Request(url)
         result = urllib.request.urlopen(req)
         page = result.read()
-        soup = parse_followings(page)
-        self.writefile('html1.html',soup.prettify().encode('utf-8'))
-        text = soup.findAll('div', attrs={'class':'WB_text', 'node-type' : 'feed_list_content'})
-        print("weibo found, write the 1st part!")
+        return page
+        
         # for x in text:
             # self.writefile('text1.txt',x.prettify().encode('utf-8'))
         #self.writefile('./output/result1',eval("u'''"+text+"'''"))
-        return text
+        
 
             
     def get_secondpage(self,url):
@@ -101,13 +115,7 @@ class getWeiboPage:
         req = urllib.request.Request(url)
         result = urllib.request.urlopen(req)
         page = result.read()
-        soup = parse_followings(page)
-        
-        self.writefile('html2.html',soup.prettify().encode('utf-8'))
-        
-        text = soup.findAll('div', attrs={'class':'WB_text', 'node-type' : 'feed_list_content'})
-        return text 
-
+        return page
             
     def get_thirdpage(self,url):
         getWeiboPage.body['count'] = '15'
@@ -118,12 +126,7 @@ class getWeiboPage:
         req = urllib.request.Request(url)
         result = urllib.request.urlopen(req)
         page = result.read()
-        soup = parse_followings(page)
-        self.writefile('html3.html',soup.prettify().encode('utf-8'))
-        text = soup.findAll('div', attrs={'class':'WB_text', 'node-type' : 'feed_list_content'})
-
-        return text
-
+        return page
                
     def get_url(self,uid):
         url = 'http://www.weibo.com/p/'+ str(uid)+ "/home"

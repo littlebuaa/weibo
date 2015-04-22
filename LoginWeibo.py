@@ -29,19 +29,20 @@ class WeiboLogin:
 
     def Login(self):
         "Login"
-        self.EnableCookie(self.enableProxy)#cookie或代理服务器配置
+        self.EnableCookie(self.enableProxy)
 
-        serverTime, nonce, pubkey, rsakv = self.GetServerTime()#登陆的第一步
+        serverTime, nonce, pubkey, rsakv = self.GetServerTime()
         postData = WeiboEncode.PostEncode(self.userName, self.passWord, serverTime, nonce, pubkey, rsakv)#加密用户和密码
         print(("Post data length: %s \n" %len(postData)))
         print(postData)
 
         req = urllib.request.Request(self.loginUrl, postData, self.postHeader)
         print("Posting request...")
-        result = urllib.request.urlopen(req)#登陆的第二步——解析新浪微博的登录过程中3
+        result = urllib.request.urlopen(req)
         text = result.read()
         try:
-            loginUrl = WeiboSearch.sRedirectData(text)#解析重定位结果
+            loginUrl = WeiboSearch.sRedirectData(text)
+            print(loginUrl)
             if 'retcode=0' in loginUrl:
                 print("Re-direct url success!!")
                 x =urllib.request.urlopen(loginUrl)

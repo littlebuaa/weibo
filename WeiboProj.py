@@ -40,7 +40,7 @@ if __name__ == '__main__':
     weiboLogin = WeiboLogin('lituobuaa@hotmail.com', 'L_t2011!') # Email,Password
     if weiboLogin.Login() == True:
         WBmsg = getWeiboPage()
-        context1,context2,context3 = WBmsg.get_weibo(1005051868663380,1) #1868663380  http://www.weibo.com/p/1005051868663380/home
+        context1 = WBmsg.get_weibo(1005051868663380,1) #1868663380  http://www.weibo.com/p/1005051868663380/home
 
     
 
